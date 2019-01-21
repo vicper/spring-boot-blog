@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf8&autoReconnect=true
+    username: root
+    password: vicper99
+
+
+mybatis:
+  type-aliases-package: com.shieory.blog.model
+  config-location: classpath:mybatis.xml
