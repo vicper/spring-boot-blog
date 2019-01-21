@@ -13,4 +13,6 @@ public interface UserService {
     User queryById(Integer id);
 
     User queryByName(String name);
+
+    Boolean comparePassword(User user, User userInDataBase);
 }

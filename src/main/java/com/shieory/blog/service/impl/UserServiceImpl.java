@@ -44,6 +44,12 @@ public class UserServiceImpl implements UserService {
         return userMapper.queryOne(user);
     }
 
+    @Override
+    public Boolean comparePassword(User user, User userInDataBase) {
+        return userInDataBase.getPassword()
+                .equals(passwordToHash(user.getPassword()));
+    }
+
     private String passwordToHash(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
