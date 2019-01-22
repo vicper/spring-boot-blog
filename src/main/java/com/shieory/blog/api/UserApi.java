@@ -31,9 +31,4 @@ public class UserApi {
 
     }
 
-    @GetMapping("/test")
-    public int testError(){
-        return 9 / 0;
-    }
-
 }
