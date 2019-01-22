@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.shieory.blog.model.User;
 import com.shieory.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author shieory
@@ -32,6 +29,11 @@ public class UserApi {
         }
         return userService.add(user);
 
+    }
+
+    @GetMapping("/test")
+    public int testError(){
+        return 9 / 0;
     }
 
 }
