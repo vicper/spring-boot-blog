@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shieory.blog.mapper.PostMapper">
+    <resultMap id="PostResultMap" type="com.shieory.blog.model.Post" autoMapping="true">
+        <id column="id" property="id" />
+        <!--关联作者， post表和user表可能会一些字段重复， 比如id这个属性， 所以给User表的字段加上columnPrefix-->
+        <association property="author" autoMapping="true" columnPrefix="author__"
+                     javaType="com.shieory.blog.model.User">
+            <id column="author_id" property="id" />
+        </association>
+        <!--user表的id是post表的author_id-->
+    </resultMap>
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="id" >
+        INSERT INTO post (author_id, title, content) VALUES (#{authorId}, #{title}, #{content});
+    </insert>
+
+    <select id="queryOne" resultMap="PostResultMap">
+        SELECT
+        post.id,
+        post.author_id,
+        post.title,
+        post.content,
+        post.create_time,
+        post.update_time,
+        <!-- 作者信息， password就不显示了 -->
+        user.id as author__id,
+        user.name as author__name
+        FROM post
+        LEFT JOIN user ON user.id = post.author_id
+        <where>
+            <if test="id!=null">
+                AND post.id=#{id}
+            </if>
+        </where>
+    </select>
+</mapper>
