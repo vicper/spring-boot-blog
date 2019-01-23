@@ -1,6 +1,8 @@
 package com.shieory.blog.api;
 
+import com.shieory.blog.annotation.CurrentUser;
 import com.shieory.blog.annotation.LoginRequired;
+import com.shieory.blog.model.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,5 +24,11 @@ public class TestApi {
     @GetMapping("/login")
     public Object testLogin() {
         return "success";
+    }
+
+    @GetMapping("/current")
+    @LoginRequired
+    public Object testCurrentUser(@CurrentUser User user) {
+        return user;
     }
 }
